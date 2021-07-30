@@ -1,0 +1,397 @@
+<!-- comment the below code to bloack NER template -->
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Identify Defect</title>
+      <link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+      <link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+      <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+      <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+    <style type="text/css">
+			  #rcorners1 {
+				border-radius: 15px 50px 30px 5px;
+				background: #fcf9f0;
+				padding: 20px;
+			  }
+			  #rcorners2 {
+				border-radius: 15px 50px 30px;
+				background: #fcf9f0;
+				padding: 20px;
+			  }
+			  
+			  .hide{
+					display:none;  
+				}
+			
+				ul
+				{
+				display: block;
+				list-style-type: disc;
+				margin-block-start: 1em;
+				margin-block-end: 1em;
+				margin-inline-start: 0px;
+				margin-inline-end: 0px;
+				padding-inline-start: 40px;
+				}
+				
+				.a-unordered-list, ul
+				{
+				margin: 0 0 0 18px;
+			color: #111;
+			}
+	
+			.a-spacing-none, .a-ws .a-ws-spacing-none {
+			margin-bottom: 0!important;
+			}
+			
+			  
+			  #rcorners3 {
+				border-radius: 15px 50px;
+				background: #b6c7db;
+				padding: 20px;
+			  }
+			  #rcorners4 {
+				border-radius: 10px;
+				background: #b6c7db;
+				padding: 15px;
+			  }
+			 
+			table, th, td {
+		  border: 1px solid black;
+		  border-collapse: collapse;
+		}
+		th, td {
+		  padding: 5px;
+		}
+		th {
+		  text-align: left;
+		}
+	  
+            .selected {
+                font-size: 12px;
+                font-family: tahoma;
+                height: 30px;
+                width: 100px;
+                border: 1px solid #ccc;
+                color: #555;
+                display: block;
+                padding: 10px;
+                box-sizing: border-box;
+                text-decoration: none;
+				float: left;
+				
+            }
+            .close {
+                float:right;
+                display:inline-block;
+                padding:2px 5px;
+            }
+			.category-div{
+				height: 110px;
+                width: 100%;
+				border: 1px solid;
+				background:#e6ffe6;
+				
+			}
+			.subcategory-div{
+				height: 110px;
+                width: 100%;
+				border: 1px solid;
+				background:#ccebff;
+				
+			}
+			
+			.selected-display-div{
+				height: 110px;
+                width: 100%;
+				border: 1px solid;
+				background:#ffe6e6;
+				
+			}
+			.text-div{
+				font-size: 16px;
+				font-family: tahoma;
+				font-weight: bold;
+				
+			}
+			
+		
+        
+  </style>
+  </head>
+  <body >
+    <div class="container-fluid">
+      <br>
+      <div class="alert alert-danger">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×
+        </button> 
+        <strong>Carefully read the instructions before you start working on this HIT.
+        </strong>
+        <br> Please be aware that all work is audited and workers with a high rejection rate will be blocked from all our future HITs.
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+           <strong> 
+            <font size="5">Select the <u>Defect Category</u> from the <u>Review</u> attribute <u></u>
+            </font>
+          </strong>
+		  <p> 1- Select from Category <br>
+		  2- Select a Sub category <br>
+		  3- To remove from selection, click on the tab.</p>
+        </div>
+        <div class="panel-body">
+        	
+        
+<!--
+
+<p> <b>Illustrated Examples are given below for understanding and reasonable preciseness in the answer.</b></p>
+<table style="width:90%">
+
+<tr>
+    <th>Review</th>
+    <th>Defect</th> 
+    <th>Answer</th>
+  </tr>
+   <tr>
+    <td>Within 24 hours its already not charging.</td>
+    <td>Hardware/Software Malfunction</td>
+    <td>No Match</td>
+  </tr>
+  <tr>
+    <td>Defective.</td>
+    <td>Ineffective/Inconsistent/Faulty</td>
+    <td>Match</td>
+  </tr>
+    <tr>
+    <td>If you are going for length , not this one , but it works,.</td>
+    <td>Size/Fit/Alignment</td>
+    <td>Match</td>
+  </tr>
+  <tr>
+    <td>Stopped working after 3 months, have booked 8 service calls for an engineer to fix but no one has come.</td>
+    <td>Damaged/Broken</td>
+    <td>No Match</td>
+  </tr>
+  <tr>
+    <td>Worked fine for 3 months.</td>
+    <td>Life/Longevity/Durability</td>
+    <td>Match</td>
+  </tr>
+  <tr>
+    <td>Received product with broken leg. Returning it.</td>
+    <td>Life/Longevity/Durability</td>
+    <td>No Match</td>
+  </tr>
+   <tr>
+    <td>Been using it for about 4 months and its already broken.</td>
+    <td>Damaged/Broken</td>
+    <td>Match</td>
+	</tr>
+	  <tr>
+    <td>Horrible product.</td>
+    <td>Customer Preference/Disliked/Okayish</td>
+    <td>Match</td>
+	</tr>
+	<tr>
+    <td>I have bought other charging cables and they are working fine without any issues</td>
+    <td>Customer Preference/Disliked/Okayish</td>
+    <td>No Match</td>
+	</tr>
+
+  <tr>
+    <td>It just BARELY lights and you cant tell a difference between having it on vs not.</td>
+    <td>Brightness</td>
+    <td>Match</td>
+  </tr>
+  <tr>
+    <td>All items listed were not shipped.</td>
+    <td>Absent/Missing Parts</td>
+    <td>Match</td>
+  </tr>
+  <tr>
+    <td>This case looks really great, but it seems to be a little loose.</td>
+    <td>Arrived Damaged/Defective/Dirty</td>
+    <td>No Match</td>
+  </tr>
+  <tr>
+    <td>
+   It does not fit well, and it tends to be a little too heavy.</td>
+    <td>Size/Fit/Alignment</td>
+    <td>Match</td>
+</tr>
+<tr>
+    <td>
+   Now all broken!</td>
+    <td>Size/Fit/Alignment</td>
+    <td>No Match</td>
+</tr>
+<tr>
+    <td>
+   Unfortunately the one I had purchased broke when I accidentally dropped it.</td>
+    <td>Hazardous/Dangerous/Flamable</td>
+    <td>No Match</td>
+</tr>
+<tr>
+    <td>
+   It seems to me that connector tips are not as solidly built as OEM.</td>
+    <td>Inferior to Competitors</td>
+    <td>Match</td>
+</tr>
+<tr>
+    <td>
+  I tried every USB 3.0 port on my computer and it never worked.</td>
+    <td>Ineffective/Inconsistent/Faulty</td>
+    <td>Match</td>
+</tr>
+<tr>
+    <td>
+Nothing but the same spot were used and it just stopped charging about 10 days in.</td>
+    <td>Ineffective/Inconsistent/Faulty</td>
+    <td>No Match</td>
+</tr>
+</table>
+<p> Few pointers to look for correct identification
+
+		<ol type="1">
+              <li>
+			    <b>Defect encountered after a duration must be considered distinctively than defects encountered immediately while receiving product.
+              </li>
+			  <table style="width:80%">
+
+</table>
+  -->
+</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-6">
+      <input type="hidden" value="${review_id}"/>
+	 <input type="hidden" value="${ASIN}"/> 
+	 <input type="hidden" value="${GL}"/> 
+	 <input type="hidden" value="${defect_list}"/>
+	 <input type="hidden" value="${review}"/> 
+      <div class = well>
+	  
+        <div style="height:400px ;width:100%;border:solid 0px ;overflow:hidden;overflow-x:hidden;overflow-y:hidden;">
+          <font size="3">Review: <strong>${review_id}<br></strong>
+        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+            <div class = well>
+              <div style="height:390px;width:600px;border:solid 0px ;overflow:scroll;overflow-x:scroll;overflow-y:scroll;">
+			  <font size="3"><strong>${review}<br></strong>
+              </div>
+            </div>
+        </div>
+		  
+        </div>
+      </div>
+    </div>
+	
+  <div class="col-xs-8 col-sm-8 col-md-8 col-lg-6">
+    <div class = well >
+      <div style="height:400px ;width:100%;border:solid 0px ;overflow:scroll;overflow-x:hidden;overflow-y:scroll;">
+        <div class="form">
+            
+			
+             
+<div class="text-div">Category</div>   
+<div id="categoryDisplay" class="category-div" onload="buildCategory()"> </div>
+<div class="text-div">Sub category</div> 
+<div id="subcategoryDisplay" class="subcategory-div"> </div>
+<div class="text-div">Selections</div> 
+<div id="selectedDisplay" class="selected-display-div">
+		<label class="hidden">
+                  <input type="hidden" id="user_input" value="userInputValue()" onclick="enableRadioBtn()" name="user_input"/>
+        </label> 		
+</div>
+
+<div id="saveSelection">
+
+</div>
+
+	<script>
+	
+	//Onclick of Radio Button call this function
+		function enableRadioBtn(finalSelection) {
+		if finalSelection.length != 0{
+		document.getElementById("submitButton").disabled = false;
+		}
+		} 
+		
+        
+		function userInputValue(finalSelection){
+		document.getElementById("user_input").value = finalSelection
+		}
+		
+	function buildCategory() {
+		var categoryList2 = $defect_list
+		categoryList2.filter(item=>{
+			var btn = document.createElement("BUTTON");
+			btn.className = "categories"
+			btn.id = item.name;
+			btn.innerHTML = item.name;
+			btn.onclick= buildSubCategoryOnClick.bind(this, item.subs);
+			document.getElementById("categoryDisplay").appendChild(btn);
+		})
+	}
+	 
+	function buildSubCategoryOnClick(categoryName){
+		document.getElementById("subcategoryDisplay").innerHTML = ""; //to clear last records
+		categoryName.map(item=>{
+			var btn = document.createElement("BUTTON");
+			btn.className = "sub-categories"
+			btn.id = item;
+			btn.innerHTML = item;
+			btn.onclick= buildSelectionsOnClick.bind(this, item);
+			document.getElementById("subcategoryDisplay").appendChild(btn);
+		})
+	}
+	 
+	var finalSelection = [];
+	function buildSelectionsOnClick(item){
+		//if item is not available, add to list
+		if(item && !finalSelection.includes(item)){
+			finalSelection.push(item);
+		}
+	 
+		document.getElementById("selectedDisplay").innerHTML = ""; //to clear last records
+		finalSelection.map(item=>{
+			var btn = document.createElement("DIV");
+			btn.className = "selected"
+			btn.id = item;
+			btn.innerHTML = item;
+			btn.onclick = removeSelectionsOnClick.bind(this, item);
+			document.getElementById("selectedDisplay").appendChild(btn);
+		})
+	}
+	 
+	function removeSelectionsOnClick(item){
+		finalSelection.pop(finalSelection);
+		buildSelectionsOnClick();
+		userInputValue(finalSelection)
+		enableRadioBtn(finalSelection)
+	}
+	</script>
+                
+			  
+
+        </div> 
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
