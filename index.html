@@ -130,7 +130,7 @@
         
   </style>
   </head>
-  <body >
+  <body onload="buildCategory()">
     <div class="container-fluid">
       <br>
       <div class="alert alert-danger">
@@ -150,7 +150,7 @@
           </strong>
 		  <p> 1- Select from Category <br>
 		  2- Select a Sub category <br>
-		  3- To remove from selection, click on the tab.</p>
+		  3- To remove a entry from selection, click on it.</p>
         </div>
         <div class="panel-body">
 
@@ -162,7 +162,7 @@
       <input type="hidden" value="${review_id}"/>
 	 <input type="hidden" value="${ASIN}"/> 
 	 <input type="hidden" value="${GL}"/> 
-	 <input type="hidden" value="${defect_list}"/>
+	 <input id="defect_list" type="hidden" value="${defect_list}" />
 	 <input type="hidden" value="${review}"/> 
       <div class = well>
 	  
@@ -188,7 +188,7 @@
 			
              
 <div class="text-div">Category</div>   
-<div id="categoryDisplay" class="category-div" onload="buildCategory()"> </div>
+<div id="categoryDisplay" class="category-div" > </div>
 <div class="text-div">Sub category</div> 
 <div id="subcategoryDisplay" class="subcategory-div"> </div>
 <div class="text-div">Selections</div> 
@@ -217,7 +217,7 @@
 		}
 		
 	function buildCategory() {
-		var categoryList2 = $defect_list
+		var categoryList2 = JSON.parse(document.getElementById("defect_list").value);
 		categoryList2.filter(item=>{
 			var btn = document.createElement("BUTTON");
 			btn.className = "categories"
