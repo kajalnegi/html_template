@@ -162,8 +162,10 @@
       <input type="hidden" value="${review_id}"/>
 	 <input type="hidden" value="${ASIN}"/> 
 	 <input type="hidden" value="${GL}"/> 
-	 <input id="defect_list" type="hidden" value="${defect_list}" />
+	 <input id="defect_list" type="hidden" value='[{"name": "category1", "subs": ["sub1-1", "sub1-2"]},{"name": "category2","subs": ["sub2-1", "sub2-2"]},{"name": "category3","subs": ["sub3-1", "sub3-2"]}]' />
 	 <input type="hidden" value="${review}"/> 
+	 
+	 <input type="hidden" id="user_input" value=""  name="user_input"/>
       <div class = well>
 	  
         <div style="height:400px ;width:100%;border:solid 0px ;overflow:hidden;overflow-x:hidden;overflow-y:hidden;">
@@ -193,9 +195,7 @@
 <div id="subcategoryDisplay" class="subcategory-div"> </div>
 <div class="text-div">Selections</div> 
 <div id="selectedDisplay" class="selected-display-div">
-		<label class="hidden">
-                  <input type="hidden" id="user_input" value="userInputValue()" onclick="enableRadioBtn()" name="user_input"/>
-        </label> 		
+			
 </div>
 
 <div id="saveSelection">
@@ -204,20 +204,28 @@
 
 	<script>
 	
+	 $(document).ready(function() {
+		
+		//Disable Submit Button on Page Load | Author : @kathiraj
+		$("#submitButton").prop('disabled', true);
+		
+		});
 	//Onclick of Radio Button call this function
-		function enableRadioBtn(finalSelection) {
-		if finalSelection.length != 0{
+		function enableRadioBtn() {
+		
 		document.getElementById("submitButton").disabled = false;
-		}
+		
 		} 
 		
         
-		function userInputValue(finalSelection){
-		document.getElementById("user_input").value = finalSelection
+		function userInputValue(){
+		document.getElementById("user_input").value = JSON.stringify(finalSelection);
 		}
 		
 	function buildCategory() {
+		
 		var categoryList2 = JSON.parse(document.getElementById("defect_list").value);
+		
 		categoryList2.filter(item=>{
 			var btn = document.createElement("BUTTON");
 			btn.className = "categories"
@@ -245,6 +253,9 @@
 		//if item is not available, add to list
 		if(item && !finalSelection.includes(item)){
 			finalSelection.push(item);
+			userInputValue();
+			alert(document.getElementById("user_input").value);
+			
 		}
 	 
 		document.getElementById("selectedDisplay").innerHTML = ""; //to clear last records
@@ -261,8 +272,6 @@
 	function removeSelectionsOnClick(item){
 		finalSelection.pop(finalSelection);
 		buildSelectionsOnClick();
-		userInputValue(finalSelection)
-		enableRadioBtn(finalSelection)
 	}
 	</script>
                 
