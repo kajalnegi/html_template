@@ -162,7 +162,7 @@
       <input type="hidden" value="${review_id}"/>
 	 <input type="hidden" value="${ASIN}"/> 
 	 <input type="hidden" value="${GL}"/> 
-	 <input id="defect_list" type="hidden" value='[{"name": "category1", "subs": ["sub1-1", "sub1-2"]},{"name": "category2","subs": ["sub2-1", "sub2-2"]},{"name": "category3","subs": ["sub3-1", "sub3-2"]}]' />
+	 <input id="defect_list" type="hidden" value="${defect_list}" />
 	 <input type="hidden" value="${review}"/> 
 	 
 	 <input type="hidden" id="user_input" value=""  name="user_input"/>
@@ -206,7 +206,7 @@
 	
 	 $(document).ready(function() {
 		
-		//Disable Submit Button on Page Load | Author : @kathiraj
+		//Disable Submit Button on Page Load | Author : @kjlng
 		$("#submitButton").prop('disabled', true);
 		
 		});
