@@ -231,28 +231,32 @@
 			btn.className = "categories"
 			btn.id = item.name;
 			btn.innerHTML = item.name;
-			btn.onclick= buildSubCategoryOnClick.bind(this, item.subs);
+			btn.onclick= buildSubCategoryOnClick.bind(this, item.subs, item.name);
 			document.getElementById("categoryDisplay").appendChild(btn);
 		})
 	}
 	 
-	function buildSubCategoryOnClick(categoryName){
+	function buildSubCategoryOnClick(categoryName, name){
 		document.getElementById("subcategoryDisplay").innerHTML = ""; //to clear last records
 		categoryName.map(item=>{
 			var btn = document.createElement("BUTTON");
 			btn.className = "sub-categories"
 			btn.id = item;
 			btn.innerHTML = item;
-			btn.onclick= buildSelectionsOnClick.bind(this, item);
+			btn.onclick= buildSelectionsOnClick.bind(this, item, name);
 			document.getElementById("subcategoryDisplay").appendChild(btn);
 		})
 	}
+	
+	function returnSubs(q){
+	return q.subs
+	}
 	 
 	var finalSelection = [];
-	function buildSelectionsOnClick(item){
+	function buildSelectionsOnClick(item, name){
 		//if item is not available, add to list
-		if(item && !finalSelection.includes(item)){
-			finalSelection.push(item);
+		if(item && !finalSelection.map(returnSubs).includes(item)){
+			finalSelection.push({name: name, subs: item});
 			userInputValue();
 			alert(document.getElementById("user_input").value);
 			
@@ -263,14 +267,15 @@
 			var btn = document.createElement("DIV");
 			btn.className = "selected"
 			btn.id = item;
-			btn.innerHTML = item;
-			btn.onclick = removeSelectionsOnClick.bind(this, item);
+			btn.innerHTML = item.name + ", " + item.subs;
+			btn.onclick = removeSelectionsOnClick.bind(this, {name: name, subs: item.subs});
 			document.getElementById("selectedDisplay").appendChild(btn);
 		})
 	}
 	 
 	function removeSelectionsOnClick(item){
-		finalSelection.pop(finalSelection);
+		var index = finalSelection.indexOf(item);
+		finalSelection.splice(index, 1);
 		buildSelectionsOnClick();
 	}
 	</script>
