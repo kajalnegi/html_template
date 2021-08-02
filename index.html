@@ -226,7 +226,7 @@
         
 		function userInputValue(){
 		document.getElementById("user_input").value = JSON.stringify(finalSelection);
-		$("#submitButton").prop('disabled', true);
+		//$("#submitButton").prop('disabled', true);
 		}
 		
 	function buildCategory() {
@@ -278,10 +278,10 @@
 		//if item is not available, add to list
 		if(item && !finalSelection.map(returnSubs).includes(item)){
 			finalSelection.push({name: name, subs: item});
-			$("#submitButton").prop('disabled', true);
+			//$("#submitButton").prop('disabled', true);
 			userInputValue();		
 			//enableRadioBtn()
-			$("#submitButton").prop('disabled', true);
+			//$("#submitButton").prop('disabled', true);
 			
 		}
 	 
@@ -299,7 +299,9 @@
 	function removeSelectionsOnClick(item){
 		var index = findIndex(finalSelection, item);
 		if (index != -1){
+		//$("#submitButton").prop('disabled', true);
 		finalSelection.splice(index, 1);
+		//$("#submitButton").prop('disabled', true);
 		}
 		buildSelectionsOnClick();
 		
