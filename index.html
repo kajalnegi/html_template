@@ -130,7 +130,7 @@
         
   </style>
   </head>
-  <body onload="buildCategory()">
+  <body >
     <div class="container-fluid">
       <br>
       <div class="alert alert-danger">
@@ -170,12 +170,17 @@
 	  
         <div style="height:400px ;width:100%;border:solid 0px ;overflow:hidden;overflow-x:hidden;overflow-y:hidden;">
           <font size="3">Review: <strong>${review_id}<br></strong>
+		  <div class="def_list" style="display: none;">
+			${defect_list}
+		  </div>
         <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
             <div class = well>
               <div style="height:390px;width:600px;border:solid 0px ;overflow:scroll;overflow-x:scroll;overflow-y:scroll;">
 			  <font size="3"><strong>${review}<br></strong>
               </div>
+			  
             </div>
+			
         </div>
 		  
         </div>
@@ -208,23 +213,25 @@
 		
 		//Disable Submit Button on Page Load | Author : @kjlng
 		$("#submitButton").prop('disabled', true);
+		buildCategory();
 		
 		});
 	//Onclick of Radio Button call this function
 		function enableRadioBtn() {
-		
+		if(document.getElementById("user_input").value != ""){
 		document.getElementById("submitButton").disabled = false;
-		
+		}	
 		} 
 		
         
 		function userInputValue(){
 		document.getElementById("user_input").value = JSON.stringify(finalSelection);
+		$("#submitButton").prop('disabled', true);
 		}
 		
 	function buildCategory() {
 		
-		var categoryList2 = JSON.parse(document.getElementById("defect_list").value);
+		var categoryList2 = JSON.parse($(".def_list").html());
 		
 		categoryList2.filter(item=>{
 			var btn = document.createElement("BUTTON");
@@ -251,14 +258,30 @@
 	function returnSubs(q){
 	return q.subs
 	}
+	
+	function returnName(q){
+	return q.name
+	}
+	
+	function findIndex(finalSelection, item){
+	for (var i = 0; i < finalSelection.length; i++){
+	if (finalSelection[i].name == item.name && finalSelection[i].subs == item.subs){
+		return i
+	}
+	
+	}
+	return -1
+	}
 	 
 	var finalSelection = [];
 	function buildSelectionsOnClick(item, name){
 		//if item is not available, add to list
 		if(item && !finalSelection.map(returnSubs).includes(item)){
 			finalSelection.push({name: name, subs: item});
-			userInputValue();
-			alert(document.getElementById("user_input").value);
+			$("#submitButton").prop('disabled', true);
+			userInputValue();		
+			//enableRadioBtn()
+			$("#submitButton").prop('disabled', true);
 			
 		}
 	 
@@ -268,15 +291,18 @@
 			btn.className = "selected"
 			btn.id = item;
 			btn.innerHTML = item.name + ", " + item.subs;
-			btn.onclick = removeSelectionsOnClick.bind(this, {name: name, subs: item.subs});
+			btn.onclick = removeSelectionsOnClick.bind(this, {name: item.name, subs: item.subs});
 			document.getElementById("selectedDisplay").appendChild(btn);
 		})
 	}
 	 
 	function removeSelectionsOnClick(item){
-		var index = finalSelection.indexOf(item);
+		var index = findIndex(finalSelection, item);
+		if (index != -1){
 		finalSelection.splice(index, 1);
+		}
 		buildSelectionsOnClick();
+		
 	}
 	</script>
                 
