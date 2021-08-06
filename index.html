@@ -1,4 +1,5 @@
-<!-- comment the below code to bloack NER template -->
+<!-- comment the below code to Defect category template 
+Author : @kjlng-->
 
 
 <!doctype html>
@@ -98,14 +99,14 @@
                 padding:2px 5px;
             }
 			.category-div{
-				height: 110px;
+				height: 90px;
                 width: 100%;
 				border: 1px solid;
 				background:#e6ffe6;
 				
 			}
 			.subcategory-div{
-				height: 110px;
+				height: 90px;
                 width: 100%;
 				border: 1px solid;
 				background:#ccebff;
@@ -113,7 +114,7 @@
 			}
 			
 			.selected-display-div{
-				height: 110px;
+				height: 90px;
                 width: 100%;
 				border: 1px solid;
 				background:#ffe6e6;
@@ -126,20 +127,29 @@
 				
 			}
 			
+			.comment-display-div{
+				height: 35px;
+				font-size: 12px;
+				font-family: Arial, Helvetica, sans-serif;
+				font-weight: bold;
+				width: 100%;
+				background: #ffffcc;
+				
+			}
 		
         
   </style>
   </head>
   <body >
     <div class="container-fluid">
-      <br>
-      <div class="alert alert-danger">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×
-        </button> 
-        <strong>Carefully read the instructions before you start working on this HIT.
-        </strong>
-        <br> Please be aware that all work is audited and workers with a high rejection rate will be blocked from all our future HITs.
-      </div>
+		  <br>
+		  <div class="alert alert-danger">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×
+			</button> 
+			<strong>Carefully read the instructions before you start working on this HIT.
+			</strong>
+			<br> Please be aware that all work is audited and workers with a high rejection rate will be blocked from all our future HITs.
+		  </div>
     </div>
     <div class="container-fluid">
       <div class="panel panel-default">
@@ -159,32 +169,32 @@
     </div>
 
     <div class="col-xs-8 col-sm-8 col-md-8 col-lg-6">
-      <input type="hidden" value="${review_id}"/>
-	 <input type="hidden" value="${ASIN}"/> 
-	 <input type="hidden" value="${GL}"/> 
-	 <input id="defect_list" type="hidden" value="${defect_list}" />
-	 <input type="hidden" value="${review}"/> 
-	 
-	 <input type="hidden" id="user_input" value=""  name="user_input"/>
-      <div class = well>
+		<input type="hidden" value="${review_id}"/>
+		<input type="hidden" value="${ASIN}"/> 
+		<input type="hidden" value="${GL}"/> 
+		<input id="defect_list" type="hidden" value="${defect_list}" />
+		<input type="hidden" value="${review}"/> 
+		 
+		<input type="hidden" id="user_input" value=""  name="user_input"/>
+		<div class = well>
 	  
-        <div style="height:400px ;width:100%;border:solid 0px ;overflow:hidden;overflow-x:hidden;overflow-y:hidden;">
-          <font size="3">Review: <strong>${review_id}<br></strong>
-		  <div class="def_list" style="display: none;">
-			${defect_list}
-		  </div>
-        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-            <div class = well>
-              <div style="height:390px;width:600px;border:solid 0px ;overflow:scroll;overflow-x:scroll;overflow-y:scroll;">
-			  <font size="3"><strong>${review}<br></strong>
-              </div>
-			  
-            </div>
-			
-        </div>
+			<div style="height:400px ;width:100%;border:solid 0px ;overflow:hidden;overflow-x:hidden;overflow-y:hidden;">
+				<font size="3">Review: <strong>${review_id}<br></strong>
+				<div class="def_list" style="display: none;">
+					${defect_list}
+				</div>
+				<div style="height:400px ;width:100%;padding-bottom: 2em;  ">
+					<div class = well>
+					  <div style="height:95%;width:100%;border: 1px;text-align: justify; padding-right: 2em;overflow:scroll;overflow-x:scroll;overflow-y:scroll;">
+						<font size="3"><strong>${review}<br></strong>
+					  </div>
+					  
+					</div>
+					
+				</div>
 		  
-        </div>
-      </div>
+			</div>
+		</div>
     </div>
 	
   <div class="col-xs-8 col-sm-8 col-md-8 col-lg-6">
@@ -195,16 +205,16 @@
 			
              
 <div class="text-div">Category</div>   
-<div id="categoryDisplay" class="category-div" > </div>
+<div id="categoryDisplay" class="category-div" style="overflow:scroll;overflow-x:scroll;overflow-y:scroll;"> </div>
 <div class="text-div">Sub Category</div> 
-<div id="subcategoryDisplay" class="subcategory-div"> </div>
+<div id="subcategoryDisplay" class="subcategory-div" style="overflow:scroll;overflow-x:scroll;overflow-y:scroll;"> </div>
 <div class="text-div">Selections</div> 
-<div id="selectedDisplay" class="selected-display-div">
+<div id="selectedDisplay" class="selected-display-div" style="overflow:scroll;overflow-x:scroll;overflow-y:scroll;">
 			
 </div>
-
-<div id="saveSelection">
-
+<div class="text-div">Comments</div>
+<div id="commentDisplay" class="comment-display-div">
+<input class="comment-display-div" type="text" name="comments" placeholder="Type comments here" id="comments" >
 </div>
 
 	<script>
@@ -218,15 +228,22 @@
 		});
 	//Onclick of Radio Button call this function
 		function enableRadioBtn() {
-		if(document.getElementById("user_input").value != ""){
+		if(finalSelection.length != 0){
 		document.getElementById("submitButton").disabled = false;
-		}	
+		}
+		else
+		{
+		$("#submitButton").prop('disabled', true);
+		}
 		} 
 		
-        
 		function userInputValue(){
 		document.getElementById("user_input").value = JSON.stringify(finalSelection);
-		//$("#submitButton").prop('disabled', true);
+		//alert(document.getElementById("user_input").value);
+		//other = document.getElementById("comments");
+		//if (other && other.value){
+			//alert(document.getElementById("comments").value);
+			//}
 		}
 		
 	function buildCategory() {
@@ -238,6 +255,7 @@
 			btn.className = "categories"
 			btn.id = item.name;
 			btn.innerHTML = item.name;
+			btn.type = "button";
 			btn.onclick= buildSubCategoryOnClick.bind(this, item.subs, item.name);
 			document.getElementById("categoryDisplay").appendChild(btn);
 		})
@@ -250,6 +268,7 @@
 			btn.className = "sub-categories"
 			btn.id = item;
 			btn.innerHTML = item;
+			btn.type = "button";
 			btn.onclick= buildSelectionsOnClick.bind(this, item, name);
 			document.getElementById("subcategoryDisplay").appendChild(btn);
 		})
@@ -276,13 +295,10 @@
 	var finalSelection = [];
 	function buildSelectionsOnClick(item, name){
 		//if item is not available, add to list
-		if(item && !finalSelection.map(returnSubs).includes(item)){
+		if(item && (findIndex(finalSelection, item) == -1)){
 			finalSelection.push({name: name, subs: item});
-			//$("#submitButton").prop('disabled', true);
 			userInputValue();		
-			//enableRadioBtn()
-			//$("#submitButton").prop('disabled', true);
-			
+			enableRadioBtn();
 		}
 	 
 		document.getElementById("selectedDisplay").innerHTML = ""; //to clear last records
@@ -291,19 +307,22 @@
 			btn.className = "selected"
 			btn.id = item;
 			btn.innerHTML = item.name + ", " + item.subs;
+			btn.type = "button";
 			btn.onclick = removeSelectionsOnClick.bind(this, {name: item.name, subs: item.subs});
 			document.getElementById("selectedDisplay").appendChild(btn);
+		
+			
 		})
 	}
 	 
 	function removeSelectionsOnClick(item){
 		var index = findIndex(finalSelection, item);
 		if (index != -1){
-		//$("#submitButton").prop('disabled', true);
 		finalSelection.splice(index, 1);
-		//$("#submitButton").prop('disabled', true);
 		}
 		buildSelectionsOnClick();
+		userInputValue();	
+		enableRadioBtn();
 		
 	}
 	</script>
